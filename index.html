@@ -24,11 +24,23 @@
             Telegram.WebApp.sendData(score.toString());
         }
 
+        function setInitialScore(initialScore) {
+            score = initialScore;
+            document.getElementById('score').innerText = `Coins: ${score}`;
+        }
+
+        Telegram.WebApp.ready();
+
         Telegram.WebApp.onEvent('themeChanged', () => {
             document.body.style.backgroundColor = Telegram.WebApp.themeParams.bg_color;
         });
 
-        Telegram.WebApp.ready();
+        Telegram.WebApp.onEvent('webAppData', (data) => {
+            setInitialScore(parseInt(data));
+        });
+
+        // Request initial score from the bot
+        Telegram.WebApp.sendData('request_initial_score');
     </script>
 </body>
 </html>
