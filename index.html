@@ -35,7 +35,7 @@
             document.body.style.backgroundColor = Telegram.WebApp.themeParams.bg_color;
         });
 
-        Telegram.WebApp.onEvent('webAppData', (data) => {
+        Telegram.WebApp.onEvent('web_app_data', (data) => {
             setInitialScore(parseInt(data));
         });
 
