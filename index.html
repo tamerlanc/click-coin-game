@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click Coin Game</title>
+    <style>
+        body { text-align: center; font-family: Arial, sans-serif; }
+        .coin { font-size: 100px; cursor: pointer; }
+        #score { font-size: 24px; margin-top: 20px; }
+    </style>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <h1>Click the Coin!</h1>
+    <div class="coin" onclick="clickCoin()">🪙</div>
+    <div id="score">Coins: 0</div>
+    <script>
+        let score = 0;
+
+        function clickCoin() {
+            score += 1;
+            document.getElementById('score').innerText = `Coins: ${score}`;
+            Telegram.WebApp.sendData(score.toString());
+        }
+
+        Telegram.WebApp.onEvent('themeChanged', () => {
+            document.body.style.backgroundColor = Telegram.WebApp.themeParams.bg_color;
+        });
+
+        Telegram.WebApp.ready();
+    </script>
+</body>
+</html>
