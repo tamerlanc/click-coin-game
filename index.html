@@ -40,9 +40,6 @@
         });
 
         // Request initial score from the bot
-        Telegram.WebApp.sendData('request_initial_score');
-
-        // Request initial score when the page is loaded
         window.onload = function() {
             Telegram.WebApp.sendData('request_initial_score');
         };
