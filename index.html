@@ -21,12 +21,14 @@
         function clickCoin() {
             score += 1;
             document.getElementById('score').innerText = `Coins: ${score}`;
+            console.log(`Sending score: ${score}`);
             Telegram.WebApp.sendData(score.toString());
         }
 
         function setInitialScore(initialScore) {
             score = initialScore;
             document.getElementById('score').innerText = `Coins: ${score}`;
+            console.log(`Initial score set to: ${score}`);
         }
 
         Telegram.WebApp.ready();
@@ -36,11 +38,12 @@
         });
 
         Telegram.WebApp.onEvent('web_app_data', (data) => {
+            console.log(`Received data: ${data}`);
             setInitialScore(parseInt(data));
         });
 
-        // Request initial score from the bot
         window.onload = function() {
+            console.log('Requesting initial score');
             Telegram.WebApp.sendData('request_initial_score');
         };
     </script>
