@@ -22,6 +22,30 @@
         }
         .coin {
             cursor: pointer;
+            width: 250px; /* Изначальный размер монеты */
+            transition: width 0.2s; /* Плавное изменение размера */
+        }
+        .coin.shrink {
+            animation: shrink 0.2s forwards;
+        }
+        .coin.grow {
+            animation: grow 0.2s forwards;
+        }
+        @keyframes shrink {
+            from {
+                width: 250px; /* Изначальный размер монеты */
+            }
+            to {
+                width: 200px; /* Уменьшенный размер монеты */
+            }
+        }
+        @keyframes grow {
+            from {
+                width: 200px; /* Уменьшенный размер монеты */
+            }
+            to {
+                width: 250px; /* Изначальный размер монеты */
+            }
         }
         #score { 
             font-size: 24px; 
@@ -37,7 +61,7 @@
     <div class="container">
         <h1>Click the Coin!</h1>
         <!-- Замените ссылку ниже на путь к вашему изображению -->
-        <div class="coin" onclick="clickCoin()"><img src="https://i.postimg.cc/xTyjhCfh/Coin.png" alt="Coin" style="width: 250px;"></div>
+        <div class="coin" onclick="clickCoin()"><img src="https://i.postimg.cc/xTyjhCfh/Coin.png" alt="Coin"></div>
         <div id="score">Coins: 0</div>
     </div>
     <script>
@@ -46,6 +70,10 @@
         function clickCoin() {
             score += 1;
             document.getElementById('score').innerText = `Coins: ${score}`;
+            document.querySelector('.coin').classList.add('shrink'); // Добавление класса для анимации уменьшения
+            setTimeout(() => {
+                document.querySelector('.coin').classList.remove('shrink'); // Удаление класса через 200 мс для восстановления размера
+            }, 200);
             Telegram.WebApp.sendData(JSON.stringify({action: 'update_score', score: score}));
         }
 
